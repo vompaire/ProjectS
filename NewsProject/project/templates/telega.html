@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Telegram Messages</title>
+</head>
+<body>
+    <h1>Telegram Messages</h1>
+    <ul>
+        {% for message in messages %}
+            <li>{{ message.text }} - {{ message.date }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

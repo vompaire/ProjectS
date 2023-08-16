@@ -1,0 +1,92 @@
+<!-- Button trigger modal -->
+{% load static %}
+{% load socialaccount %}
+
+<!-- Modal -->
+<div class="modal fade" id="auth" tabindex="-1" aria-labelledby="authLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <ul class="nav nav-tabs" id="loginTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" id="loginTab" data-bs-toggle="tab" href="#login" role="tab" aria-controls="login" aria-selected="true">Авторизация</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="registrationTab" data-bs-toggle="tab" href="#registration" role="tab" aria-controls="registration" aria-selected="false">Регистрация</a>
+                    </li>
+                </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="alert alert-danger d-none" role="alert"></div>
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="loginTab">
+                    <div class="modal-footer mfright" style="font-size: 27px;">
+                        <a href="{% url "social:begin" "google-oauth2" %}" style="color: white; background-color: blue; text-decoration: none; border-radius: 10px;">
+                            <img src="{% static 'image/google.png' %}" alt="Google" width="40" height="40" style="margin-right: 5px; margin-left: 5px; margin-bottom: 10px; margin-top: 10px"/>
+                            Войти через Google&nbsp;
+                        </a>
+                    </div>
+                    <div class="divider" style="margin-bottom: -20px;">
+                        <span class="divider-line"></span>
+                        <span class="divider-text">ИЛИ</span>
+                        <span class="divider-line"></span>
+                    </div>
+                    <form action="{% url 'login_ajax' %}" method="post" id="form_ajaxL">
+                        <div class="modal-body">
+                            {% csrf_token %}
+                            {{ login_ajax }}
+                            <div class="d-flex justify-content-between" style="margin-top: 10px">
+                                <div>
+                                    <button type="submit" class="btn btn-primary">Вход</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-bs-target="#resetpass" data-bs-toggle="modal" data-bs-dismiss="modal">Забыли пароль?</button>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="registration" role="tabpanel" aria-labelledby="registrationTab">
+                    <form action="{% url 'regist_ajax' %}" method="post" id="form_ajaxR">
+                        <div class="modal-body">
+
+                            {% csrf_token %}
+                            {{ regist_ajax }}
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Регистрация</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="resetpass" aria-hidden="true" aria-labelledby="resetpasslabel2" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="resetpasslabel2">Востановление пароля</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="tab-pane fade show active" id="forgotPassword" role="tabpanel" aria-labelledby="ResetTab">
+                <form action="{% url 'reset_ajax' %}" method="post" id="form_ajaxRS">
+                    <div class="modal-body">
+
+
+                        {% csrf_token %}
+                        {{ reset_ajax }}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Восстановить пароль</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-bs-target="#auth" data-bs-toggle="modal" data-bs-dismiss="modal">Вернуться к авторизации</button>
+            </div>
+        </div>
+    </div>
+</div>
+

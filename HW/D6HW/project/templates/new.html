@@ -1,0 +1,19 @@
+
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+
+{% block title %}
+New
+{% endblock title %}
+
+{% block content %}
+<tr>
+
+               <td>{{ news.category.name }}</td>
+               <td>{{ news.name|currency }}</td>
+               <td>{{ news.data_public|date:"d-m-Y" }}</td>
+               <td>{{ news.description|currency }}</td>
+
+           </tr>
+{% endblock content %}

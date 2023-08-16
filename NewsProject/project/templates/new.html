@@ -1,0 +1,27 @@
+
+{% extends 'default.html' %}
+
+{% load custom_filters %}
+
+{% block title %}
+New
+{% endblock title %}
+
+{% block content %}
+<table style="width: 100%;">
+           <tr>
+               <td style="width: 5%;">Категория</td>
+               <td style="width: 25%;">Заголовок</td>
+               <td style="width: 25%;">Дата Публикации</td>
+               <td style="width: 45%;">Описание</td>
+           </tr>
+<tr>
+               <td>{% for category in new.category.all %}
+    {{ category.name }}
+{% endfor %}</td>
+               <td>{{ new.name|currency }}</td>
+               <td>{{ new.data_public|date:"d-m-Y" }}</td>
+               <td>{{ new.description|currency }}</td>
+           </tr>
+</table>
+{% endblock content %}

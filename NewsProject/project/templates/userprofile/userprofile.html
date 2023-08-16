@@ -1,0 +1,9 @@
+{% extends 'default.html' %}
+
+{% block content %}
+  <h2>Профиль пользователя {{ user.username }}</h2>
+  <p>Имя пользователя: {{ user.username }}</p>
+  <p>Email: {{ user.email }}</p>
+  <p>Биография: {{ user.profile.bio }}</p>
+  <img src="{{ user.profile.profile_image.url }}" alt="Profile Image">
+{% endblock %}

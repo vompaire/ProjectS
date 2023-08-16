@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cybersport News Images</title>
+</head>
+<body>
+<h1>Cybersport News Images</h1>
+<ul>
+    {% for news_item in news_list %}
+    <li>
+        <a href="https://cybersport.ru/{{ news_item.link }}">
+            <h3>{{ news_item.title }}</h3>
+            <img src="{{ news_item.image }}" alt="">
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+</body>
+</html>

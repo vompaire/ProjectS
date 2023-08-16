@@ -1,0 +1,27 @@
+
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+
+{% block title %}
+New
+{% endblock title %}
+
+{% block content %}
+<table>
+           <tr>
+               <td>Категория</td>
+               <td>Заголовок</td>
+               <td>Дата Публикации</td>
+               <td>Описание</td>
+
+
+           </tr>
+<tr>
+               <td>{{ new.category.name }}</td>
+               <td>{{ new.name|currency }}</td>
+               <td>{{ new.data_public|date:"d-m-Y" }}</td>
+               <td>{{ new.description|currency }}</td>
+           </tr>
+</table>
+{% endblock content %}

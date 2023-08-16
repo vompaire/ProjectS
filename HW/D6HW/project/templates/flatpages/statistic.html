@@ -1,0 +1,12 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+{{ flatpage.title }}
+{% endblock title %}
+
+{% block content %}
+    <h2>{{ flatpage.title }}</h2>
+    <hr>
+<h2><span style="color: #993300;"><em>{{ flatpage.content }}</em></span></h2>
+
+{% endblock content %}

@@ -1,0 +1,40 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+
+{% block title %}
+News
+{% endblock title %}
+
+{% block content %}
+
+   <h1>{{news|length}}</h1>
+   <hr>
+   {% if news %}
+       <table>
+           <tr>
+               <td>Категория</td>
+               <td>Заголовок</td>
+               <td>Дата Публикации</td>
+               <td>Описание</td>
+
+
+           </tr>
+
+
+           {% for news in news %}
+           <tr>
+
+               <td>{{ news.category.name }}</td>
+               <td>{{ news.name|currency }}</td>
+               <td>{{ news.data_public|date:"d-m-Y" }}</td>
+               <td>{{ news.description|truncatewords:20|currency }}</td>
+
+           </tr>
+           {% endfor %}
+
+       </table>
+   {% else %}
+       <h2>Товаров нет!</h2>
+   {% endif %}
+{% endblock content %}

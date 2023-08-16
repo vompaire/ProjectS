@@ -1,0 +1,139 @@
+{% extends 'default.html' %}
+
+
+{% block title %}
+News
+{% endblock title %}
+
+{% block content %}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="create/">CREATE</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="search/">SEARCH</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<h1>Отображено новостей:<br>
+    {{news|length}}</h1>
+
+   <form action="" method="get">
+       {# Переменная, которую мы передали через контекст, может сгенерировать нам форму с полями #}
+       {{ filterset.form.as_p }}
+       {# Добавим кнопку отправки данных формы #}
+
+
+<hr>
+{% if newsout %}
+    <div class="news-container">
+        {% for news in newsout %}
+            <div class="news-tile">
+                <a href="{{ news.link }}">
+                    <h4>{{ news.site }}</h4>
+                    <h3>{{ news.title }}</h3>
+                    <img src="{{ news.image }}" alt="">
+                    <time class="news-time" datetime="{{ news.data_public_from_site }}"></time>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>Новостей нет!</p>
+{% endif %}
+
+
+
+
+{#{% if news %}#}
+{#<table style="width: 100%;">#}
+{##}
+{#    <tr>#}
+{#        <td style="width: 5%;">Категория</td>#}
+{#        <td style="width: 25%;">Заголовок</td>#}
+{#        <td style="width: 25%;">Дата Публикации</td>#}
+{#        <td style="width: 45%;">Описание</td>#}
+{#    </tr>#}
+{##}
+{##}
+{#    {% for news in news %}#}
+{#    <tr onclick="window.location.href='{% url 'new_detail' news.pk %}'">#}
+{##}
+{#        <td>{% for category in news.category.all %}#}
+{#            {{ category.name }}#}
+{#            {% endfor %}#}
+{#        </td>#}
+{#        <td>{{ news.name }}</td>#}
+{#        <td>{{ news.data_public|date:"d-m-Y" }}</td>#}
+{#        <td>{{ news.description|truncatechars:20 }}</td>#}
+{#        <td>#}
+{#            <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">#}
+{#                <div class="container">#}
+{#                    <div class="collapse navbar-collapse" id="navbarResponsive">#}
+{#                        <ul class="navbar-nav ml-auto">#}
+{#                            <li class="nav-item">#}
+{#                                <a class="nav-link" href="{{ news.get_absolute_url }}/edit/">Редактировать</a>#}
+{#                            </li>#}
+{#                            <li class="nav-item">#}
+{#                                <a class="nav-link" href="{{ news.get_absolute_url }}/delete/">Удалить</a>#}
+{#                            </li>#}
+{#                        </ul>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </nav>#}
+{#        </td>#}
+{#    </tr>#}
+{##}
+{#    {% endfor %}#}
+{##}
+{#</table>#}
+{#{% else %}#}
+{#<h2>Новостей нет!</h2>#}
+{#{% endif %}#}
+
+
+{% if page_obj.has_previous %}
+<a href="?page=1">1</a>
+{% if page_obj.previous_page_number != 1 %}
+
+<a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+{% endif %}
+{% endif %}
+
+{# Информация о текущей странице #}
+{{ page_obj.number }}
+
+{# Информация о следующих страницах #}
+{% if page_obj.has_next %}
+<a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+{% if paginator.num_pages != page_obj.next_page_number %}
+
+<a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+{% endif %}
+{% endif %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script>
+    // Ваш JavaScript код
+    var timeElements = document.querySelectorAll('time');
+
+    timeElements.forEach(function(element) {
+        var originalDateTime = element.getAttribute('datetime');
+        var dateObj = moment(originalDateTime);
+
+
+        var gmtOffset = dateObj.utcOffset();
+        var adjustedDateObj = dateObj.clone().add(gmtOffset, 'minutes');
+
+        var formattedDateTime = adjustedDateObj.format('DD.MM.YYYY, HH:mm');
+        element.textContent = formattedDateTime;
+    });
+</script>
+{% endblock content %}

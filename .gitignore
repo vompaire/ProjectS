@@ -1,0 +1,16 @@
+venv/
+*.log
+config.py
+.idea/
+db.sqlite3
+__pycache__/
+node_modules/
+media/
+
+*.pyc
+*.pyo
+*.pyd
+*.swp
+.DS_Store
+*~
+*.bak
